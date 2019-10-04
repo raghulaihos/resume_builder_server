@@ -5,6 +5,6 @@ const searchController = require('../controllers/search');
 
 
 
-router.get('/search', searchController.search);
+router.get('/test', searchController.search);
 
 module.exports = router; 
