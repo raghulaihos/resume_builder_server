@@ -4,7 +4,6 @@ const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 const db = require('../postgres/connection');
-const jamcards_routes = require('./routes/jamcards');
 const search_routes = require('./routes/search');
 const auth_routes = require('./routes/auth');
 const bodyParser = require('body-parser');
@@ -17,6 +16,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use('/',search_routes)
 app.use('/auth',auth_routes);
 
 app.use((error, req, res, next)=>{
