@@ -1,0 +1,21 @@
+{
+  "name": "jampack",
+  "version": "1.0.0",
+  "description": "server for jammer-web",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/api/server.js"
+  },
+  "author": "Raghuram Subramanian raghulaihos@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^1.19.3",
+    "pg": "^7.12.1"
+  }
+}
