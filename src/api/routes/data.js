@@ -11,9 +11,9 @@ router.post(
     dataController.formSubmit
 )
 
-// router.post(
-//     '/fetch',
-//     dataController.dataFetch
-// )
+router.post(
+    '/fetch',
+    dataController.dataFetch
+)
 
 module.exports = router;
