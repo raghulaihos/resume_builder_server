@@ -3,7 +3,6 @@ const db = require('../../postgres/connection');
 
 const formSubmit = (req, res, next) => {
 
-    // Check if req has jwt & belongs to a valid user
     const user_id = req.body.user_id;
     const json = req.body.payload;
 
@@ -19,9 +18,12 @@ const formSubmit = (req, res, next) => {
     else {
         res.status(200).json({ msg: "Saved successfully." })
     }
-    // Yes: write data to db, return 200
 
-    // No: redirect to login page
+}
+
+const dataFetch = (req, res, next) => {
+    const user_id = req.body.user_id
+
 
 }
 
