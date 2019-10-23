@@ -6,6 +6,7 @@ const port = process.env.PORT || 3000;
 const db = require('../postgres/connection');
 const search_routes = require('./routes/search');
 const auth_routes = require('./routes/auth');
+const data_routes = require('./routes/data');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
@@ -16,15 +17,16 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/',search_routes)
-app.use('/auth',auth_routes);
+app.use('/', search_routes);
+app.use('/auth', auth_routes);
+app.use('/data', data_routes);
 
-app.use((error, req, res, next)=>{
+app.use((error, req, res, next) => {
     console.log(error);
     const status = error.statusCode || 500;
     const message = error.message;
     const data = error.data;
-    res.status(status).json({message: message, data: data});
+    res.status(status).json({ message: message, data: data });
 })
 
 app.listen(port, () => {
