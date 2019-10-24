@@ -1,6 +1,17 @@
 const is_auth = require('../middleware/is_auth');
 const db = require('../../postgres/connection');
 
+const tester = async (req, res, next)=>{
+    try {
+        let result = await db.query(`SELECT data FROM data WHERE user_id=${req.query.user_id}`);
+        res.status(200).json(result.rows[0]);
+    } catch (err) {
+        const error = new Error('DB Error fetching equipment');
+        error.statusCode = 500;
+        next(err);
+    }
+}
+
 const formSubmit = (req, res, next) => {
 
     const user_id = req.body.user_id;
@@ -58,5 +69,6 @@ const dataFetch = (req, res, next) => {
 
 module.exports = {
     formSubmit,
-    dataFetch
+    dataFetch,
+    tester
 }
