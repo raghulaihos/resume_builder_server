@@ -16,4 +16,7 @@ router.post(
     dataController.dataFetch
 )
 
+router.get('/tester', dataController.tester);
+
+
 module.exports = router;
