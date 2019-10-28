@@ -1,7 +1,7 @@
 const is_auth = require('../middleware/is_auth');
 const db = require('../../postgres/connection');
 
-const tester = async (req, res, next)=>{
+const tester = async (req, res, next) => {
     try {
         let result = await db.query(`SELECT data FROM data WHERE user_id=${req.query.user_id}`);
         res.status(200).json(result.rows[0]);
@@ -14,8 +14,8 @@ const tester = async (req, res, next)=>{
 
 const formSubmit = (req, res, next) => {
 
-    const user_id = req.body.user_id;
-    const json = req.body.payload;
+    const user_id = req.query.user_id;
+    const json = req.query.payload;
 
     const cmd = `INSERT INTO data (user_id, data) VALUES ($1, $2)`;
     const args = [user_id, json];  // Probably have to convert this to a string
@@ -34,7 +34,7 @@ const formSubmit = (req, res, next) => {
 
 const dataFetch = (req, res, next) => {
 
-    const user_id = req.body.user_id;
+    const user_id = req.query.user_id;
     const cmd = `SELECT data FROM data WHERE user_id=$1`
     const args = [user_id];
     const out = db.query(cmd, args, (err, result, fields) => {
@@ -53,16 +53,6 @@ const dataFetch = (req, res, next) => {
 
 
     });
-
-    // if (!res) {  // TODO: And other cases?
-    //     const error = new Error('Failed saving user data');
-    //     error.statusCode = 500;
-    //     throw error;
-    // }
-    // else {
-    //     res.status(200).json({ msg: "Saved successfully." })
-    // }
-
 
 }
 
