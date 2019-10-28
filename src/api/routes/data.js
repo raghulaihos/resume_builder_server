@@ -5,18 +5,21 @@ const dataController = require('../controllers/data');
 const is_auth = require('../middleware/is_auth');
 
 
-router.post(
+router.get(
     '/submit',
     is_auth,
     dataController.formSubmit
 )
 
-router.post(
+router.get(
     '/fetch',
     dataController.dataFetch
 )
 
-router.get('/tester', dataController.tester);
+router.get(
+    '/tester',
+    dataController.tester
+);
 
 
 module.exports = router;
