@@ -13,6 +13,7 @@ router.get(
 
 router.get(
     '/fetch',
+    is_auth,
     dataController.dataFetch
 )
 
