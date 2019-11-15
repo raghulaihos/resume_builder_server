@@ -17,12 +17,12 @@ fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
         };
         html = Jinja.render(data, context)
         pdf.create(html, options)
-            .toFile('./test.pdf', (err, res) => {
+            .toStream((err, stream) => {
                 if (err) {
                     console.log(err)
                 }
                 else {
-                    console.log(res)
+                    stream.pipe(response)
                 }
             })
     } else {

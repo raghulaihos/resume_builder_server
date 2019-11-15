@@ -1,4 +1,3 @@
-const is_auth = require('../middleware/is_auth');
 const db = require('../../postgres/connection');
 
 const tester = async (req, res, next) => {
