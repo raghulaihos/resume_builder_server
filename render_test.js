@@ -2,8 +2,10 @@ const fs = require('fs')
 const path = require('path')
 const { JSDOM } = require('jsdom');
 const Jinja = require('jinja-js');
+const pdf = require('html-pdf');
 
 filePath = path.join(__dirname, 'test.html');
+options = { format: 'Letter' };
 
 fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
     if (!err) {
@@ -13,7 +15,16 @@ fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
             user_name: "RahulDamineni",
             password: "Password"
         };
-        console.log(Jinja.render(data, context))
+        html = Jinja.render(data, context)
+        pdf.create(html, options)
+            .toFile('./test.pdf', (err, res) => {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    console.log(res)
+                }
+            })
     } else {
         console.log(err);
     }
