@@ -7,20 +7,16 @@ const is_auth = require('../middleware/is_auth');
 
 router.get(
     '/submit',
-    is_auth,
+    // is_auth,
     dataController.formSubmit
 )
 
 router.get(
     '/fetch',
-    is_auth,
+    // is_auth,
     dataController.dataFetch
 )
 
-router.get(
-    '/tester',
-    dataController.tester
-);
 
 
 module.exports = router;

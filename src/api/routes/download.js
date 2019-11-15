@@ -6,7 +6,7 @@ const is_auth = require('../middleware/is_auth');
 
 router.get(
     '/download',
-    is_auth,
+    // is_auth,
     downloadController.streamer
 )
 

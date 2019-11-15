@@ -13,7 +13,7 @@ const id_to_stream = (user_data, template_code) => {
 
     fs.readFile(filePath, { encoding: 'utf-8' }, (err, html_template) => {
         if (!err) {
-            console.log('received data: ' + data);
+            // console.log('received data: ' + data);
             // dom = new JSDOM(data);
             let context = {
                 user_name: "RahulDamineni",
@@ -21,7 +21,8 @@ const id_to_stream = (user_data, template_code) => {
             };
 
             html = Jinja.render(html_template, user_data)
-            return pdf.create(html, options)
+            console.log("Returning...")
+            return pdf.create(html, options);
         } else {
             console.log(err);
         }
@@ -34,19 +35,41 @@ const streamer = async (req, res, next) => {
     const user_id = req.query.user_id;
     const template_code = req.query.template_code;
 
-    db.query(`SELECT data FROM data WHERE user_id=${user_id}`)
-        .then((result) => JSON.parse(result.rows[0]))
-        .then((user_data) => id_to_stream(user_data, template_code))
-        .then((streamPromise) => {
-            streamPromise.toStream((err, stream) => {
-                res.writeHead(200, {
-                    "Content-Type": "application/octet-stream",
-                    "Content-Disposition": "attachment; filename=" + fileName
-                });
-                stream.pipe(res);
-            })
+    await db.query(`SELECT data FROM data WHERE user_id=${user_id}`)
+        .then((result) => {
+            console.log(result.rows[0]);
+            user_data = result.rows[0].data;
+            return JSON.parse(user_data);
+        })
+        .then((user_data) => {
+
+            filePath = path.join(__dirname, template_code, 'template.html');
+            options = { format: 'Letter' };
+
+            fs.readFile(filePath, { encoding: 'utf-8' }, (err, html_template) => {
+                if (!err) {
+                    // console.log('received data: ' + data);
+                    // dom = new JSDOM(data);
+                    let context = {
+                        user_name: "RahulDamineni",
+                        password: "Password"
+                    };
+                    console.log(user_data)
+                    html = Jinja.render(html_template, user_data)
+                    pdf.create(html, options).toStream((err, stream) => {
+                        res.writeHead(200, {
+                            "Content-Type": "application/pdf",
+                            "Content-Disposition": "attachment; filename=" + user_data.user_name + ".pdf"
+                        });
+                        stream.pipe(res);
+                    })
+                } else {
+                    console.log(err);
+                }
+            });
         })
         .catch((err) => {
+            console.log(err);
             res.status(500).json({ msg: "Operation failed" });
         })
 
