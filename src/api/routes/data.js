@@ -11,6 +11,11 @@ router.get(
     dataController.formSubmit
 )
 
+router.post(
+    '/form_submit',
+    dataController.form_submit
+);
+
 router.get(
     '/fetch',
     dataController.dataFetch
