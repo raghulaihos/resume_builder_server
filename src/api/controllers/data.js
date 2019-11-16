@@ -13,7 +13,6 @@ const tester = async (req, res, next) => {
 }
 
 const formSubmit = (req, res, next) => {
-
     const user_id = req.query.user_id;
     const json = req.query.payload;
 
@@ -29,7 +28,18 @@ const formSubmit = (req, res, next) => {
     else {
         res.status(200).json({ msg: "Saved successfully." })
     }
+}
 
+const form_submit = async (req,res,next) =>{
+    try {
+        let data = JSON.stringify(req.body.data);
+        let result = await db.query(`insert into data (user_id, data) values (${req.body.user_id},'${data}') returning *`);
+        res.status(200).json(result.rows);
+    } catch (err) {
+        const error = new Error('DB Error posting user data');
+        error.statusCode = 500; 
+        next(err);
+    }
 }
 
 const dataFetch = (req, res, next) => {
@@ -60,5 +70,6 @@ const dataFetch = (req, res, next) => {
 module.exports = {
     formSubmit,
     dataFetch,
-    tester
+    tester,
+    form_submit
 }
