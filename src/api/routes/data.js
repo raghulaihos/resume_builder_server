@@ -7,6 +7,7 @@ const is_auth = require('../middleware/is_auth');
 
 router.post(
     '/form_submit',
+    is_auth,
     dataController.form_submit
 );
 
