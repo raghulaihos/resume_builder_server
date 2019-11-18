@@ -59,7 +59,7 @@ const streamer = async (req, res, next) => {
                     pdf.create(html, options).toStream((err, stream) => {
                         res.writeHead(200, {
                             "Content-Type": "application/pdf",
-                            "Content-Disposition": "attachment; filename=" + user_data.user_name + ".pdf"
+                            "Content-Disposition": "inline; filename=" + user_data.user_name + ".pdf"
                         });
                         stream.pipe(res);
                     })

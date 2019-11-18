@@ -13,16 +13,33 @@ fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
         dom = new JSDOM(data);
         let context = {
             user_name: "RahulDamineni",
-            password: "Password"
+            password: "Password",
+            objects: [
+                {
+                    name: "SW Dev",
+                    desc: "Develops software"
+                },
+                {
+                    name: "HW Dev",
+                    desc: "Develops hardware"
+                }, {
+                    name: "UI Dev",
+                    desc: "Develops UI"
+                },
+                {
+                    name: "SOme Dev",
+                    desc: "Sokething"
+                }
+            ]
         };
         html = Jinja.render(data, context)
         pdf.create(html, options)
-            .toStream((err, stream) => {
+            .toFile('./test.pdf', (err, stream) => {
                 if (err) {
                     console.log(err)
                 }
                 else {
-                    stream.pipe(response)
+                    console.log(stream)
                 }
             })
     } else {
