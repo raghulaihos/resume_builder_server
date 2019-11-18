@@ -7,6 +7,7 @@ const db = require('../postgres/connection');
 const search_routes = require('./routes/search');
 const auth_routes = require('./routes/auth');
 const data_routes = require('./routes/data');
+const download_routes = require('./routes/download');
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
@@ -17,7 +18,7 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/', search_routes);
+app.use('/', search_routes, download_routes);
 app.use('/auth', auth_routes);
 app.use('/data', data_routes);
 
