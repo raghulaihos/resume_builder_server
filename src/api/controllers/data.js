@@ -1,4 +1,3 @@
-const is_auth = require('../middleware/is_auth');
 const db = require('../../postgres/connection');
 
 const tester = async (req, res, next) => {
@@ -16,28 +15,34 @@ const formSubmit = (req, res, next) => {
     const user_id = req.query.user_id;
     const json = req.query.payload;
 
-    const cmd = `INSERT INTO data (user_id, data) VALUES ($1, $2)`;
+    const insert_cmd = `INSERT INTO data (user_id, data) VALUES ($1, $2)`;
+    const update_cmd = `UPDATE data SET data = $2 WHERE user_id = $1`
     const args = [user_id, json];  // Probably have to convert this to a string
-    const out = db.query(cmd, args);
 
-    if (!out) {  // TODO: And other cases?
-        const error = new Error('Failed saving user data');
-        error.statusCode = 500;
-        throw error;
-    }
-    else {
-        res.status(200).json({ msg: "Saved successfully." })
-    }
+    db.query(insert_cmd, args)
+        .then(() => res.status(200).json({ msg: "Saved successfully." }))
+        .catch((err) => {
+            db.query(update_cmd, args)
+                .then(() => {
+                    res.status(200).json({ msg: "Updated successfully." })
+                })
+                .catch((err) => {
+                    const error = new Error('Failed saving user data');
+                    error.statusCode = 500;
+                    throw error;
+                })
+        })
+
 }
 
-const form_submit = async (req,res,next) =>{
+const form_submit = async (req, res, next) => {
     try {
         let data = JSON.stringify(req.body.data);
         let result = await db.query(`insert into data (user_id, data) values (${req.body.user_id},'${data}') returning *`);
         res.status(200).json(result.rows);
     } catch (err) {
         const error = new Error('DB Error posting user data');
-        error.statusCode = 500; 
+        error.statusCode = 500;
         next(err);
     }
 }
