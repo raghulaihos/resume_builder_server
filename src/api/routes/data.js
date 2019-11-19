@@ -5,7 +5,7 @@ const dataController = require('../controllers/data');
 const is_auth = require('../middleware/is_auth');
 
 
-router.post(
+router.post( 
     '/form_submit',
     is_auth,
     dataController.form_submit
