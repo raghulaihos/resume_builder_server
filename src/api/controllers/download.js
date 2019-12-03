@@ -50,10 +50,12 @@ const streamer = async (req, res, next) => {
                 if (!err) {
                     // console.log('received data: ' + data);
                     // dom = new JSDOM(data);
-                    let context = {
-                        user_name: "RahulDamineni",
-                        password: "Password"
-                    };
+                    // let context = {
+                    //     user_name: "RahulDamineni",
+                    //     password: "Password"
+                    // };
+                    // const context = require(path.join(__dirname, "user_data.json"));
+
                     console.log(user_data)
                     html = Jinja.render(html_template, user_data)
                     pdf.create(html, options).toStream((err, stream) => {
