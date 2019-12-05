@@ -298,7 +298,7 @@
             <div class="section row">
                 <h2 class="col">Personal Statement</h2>
                 <div class="section-text col-right">
-                <div>Description: <p>{{skill.desc}}</p>
+                <div><p>{{personalInfo.careerObjective}}</p>
                 </div>
                 </div>
             </div>
@@ -310,7 +310,8 @@
                 <div class="section-text col-right">
                     <h3><span class="emph">{{edu.degree}}</span> {{edu.concentration}}</h3>
                     <h4>{{edu.university}}</h4>
-                    <div class="row">
+                    <h5>GPA: {{edu.gpa}}</h5>
+                    <div class="section-text col-right">
                         <div class="col-right light"><p>{{edu.startDate}} - {{edu.endDate}}</p></div>
                     </div>
                 </div>
@@ -332,7 +333,7 @@
                         <div class="emph col"><p>{{exp.jobTitle}}</p></div>
                         <div class="col-right light"><p>{{exp.jobStartDate}} - {{exp.jobEndDate}}</p></div>
                     </div>
-                    <div>Description:<p>{{exp.responsibilites}}</p>
+                    <div><p>{{exp.responsibilities}}</p>
                     </div>
                   {% endfor %}
                 </div>
@@ -358,8 +359,8 @@
             <div class="section row">
                 <h2 class="col">Links</h2>
                 <div class="section-text col-right">
-                    <h3><a href={{websites.githubURL}}>GitHub</a></h3>
-                    <h3><a href={{websites.linkedInURL}}>LinkedIn</a></h3>
+                    <h3>GitHub: {{websites.githubURL}}</h3>
+                    <h3>LinkedIn: {{websites.linkedInURL}}</h3>
                 </div>
             </div>
 

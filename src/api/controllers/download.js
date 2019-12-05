@@ -56,6 +56,8 @@ const streamer = async (req, res, next) => {
                     // };
                     // const context = require(path.join(__dirname, "user_data.json"));
 
+
+                    user_data.skills.technical = user_data.skills.technical.split(',')
                     console.log(user_data)
                     html = Jinja.render(html_template, user_data)
                     pdf.create(html, options).toStream((err, stream) => {
