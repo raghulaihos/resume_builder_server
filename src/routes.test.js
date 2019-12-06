@@ -33,7 +33,7 @@ it("should return the rows of data of specific user", (done)=>{
     .get('/data/fetch')
     .expect(200)
     .expect((res)=>{
-        expect(res.body.res).to.be.a('string');
+        expect(res.body.res).to.be.a(JSON);
     })
     .end(done);
 });
@@ -43,7 +43,7 @@ it("should submit form and return the rows submited", (done)=>{
     .post('/data/form_submit')
     .expect(200)
     .expect((res)=>{
-        expect(res.body.res).to.be.a('string');
+        expect(res.body.res).to.be.a(Object);
     })
     .end(done);
 });
