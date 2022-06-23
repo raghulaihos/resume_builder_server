@@ -17,7 +17,7 @@
     "express-validator": "^6.2.0",
     "html-pdf": "^2.2.0",
     "jinja-js": "^0.1.8",
-    "jsdom": "^15.2.1",
+    "jsdom": "^16.5.0",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.2",
     "nodemon": "^1.19.3",
